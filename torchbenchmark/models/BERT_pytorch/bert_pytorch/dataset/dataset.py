@@ -27,10 +27,10 @@ class BERTDataset(Dataset):
         self.encoding = encoding
 
         # For use as benchmark we only accept data from generator
-        # with open(corpus_path, "r", encoding=encoding) as f:
+        # with generator as f:
 
-        assert generator != None
-        with generator as f:
+        # assert generator != None
+        with open(corpus_path, "r", encoding=encoding) as f:
 
             if self.corpus_lines is None and not on_memory:
                 for _ in f:
