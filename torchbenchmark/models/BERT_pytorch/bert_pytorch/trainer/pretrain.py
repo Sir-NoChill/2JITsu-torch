@@ -106,6 +106,8 @@ class BERTTrainer:
         """
         str_code = "train" if train else "test"
 
+        results = []
+
         data_iter = enumerate(data_loader)
 
         avg_loss = 0.0
@@ -153,14 +155,14 @@ class BERTTrainer:
             }
 
             if i % self.log_freq == 0:
-                data_iter.write(str(post_fix))
+                results.append(str(post_fix))
 
             if self.debug and epoch == 1 and i == 0:
                 torch.save(next_sent_output, self.debug)
 
         print(
             "EP%d_%s, avg_loss=" % (epoch, str_code),
-            avg_loss / len(data_iter),
+            avg_loss / len(data_loader),
             "total_acc=",
             total_correct * 100.0 / total_element,
         )
